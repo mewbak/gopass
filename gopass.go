@@ -53,6 +53,7 @@ func GetPass(prompt string) (passwd string, err error) {
 	// watch for these signals so we can turn back on echo if need be.
 	signal.Notify(sig, syscall.SIGHUP, syscall.SIGINT, syscall.SIGKILL, syscall.SIGQUIT,
 		          syscall.SIGTERM)
+	defer signal.Stop(sig)
 	go catchSignal(fd, sig, brk)
 
 	// Turn off the terminal echo.
